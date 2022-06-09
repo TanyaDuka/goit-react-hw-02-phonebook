@@ -8,9 +8,8 @@ class NewContact extends Component {
     number: '',
   };
 
-  onSubmitNewContact = event => {
-    event.preventDefault();
-
+  handleSubmit = e => {
+    e.preventDefault();
     this.props.onSubmit(this.state);
 
     this.setState({
@@ -19,17 +18,18 @@ class NewContact extends Component {
     });
   };
 
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   render() {
     return (
-      <form className={s.container} onSubmit={this.onSubmitNewContact}>
+      <form className={s.container} onSubmit={this.handleSubmit}>
         <label className={s.label}>Name</label>
         <input
           className={s.input}
           onChange={this.handleChange}
+          value={this.state.name}
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -40,6 +40,7 @@ class NewContact extends Component {
         <input
           className={s.input}
           onChange={this.handleChange}
+          value={this.state.number}
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"

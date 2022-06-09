@@ -20,9 +20,8 @@ class App extends Component {
       contacts: prevState.contacts.filter(contact => id !== contact.id),
     }));
   };
-
-  onSubmitNewContact = contact => {
-    const NewContact = {
+  handleSubmit = contact => {
+    const newContact = {
       id: nanoid(),
       name: contact.name,
       number: contact.number,
@@ -30,23 +29,15 @@ class App extends Component {
 
     if (
       this.state.contacts.some(
-        contact => contact.name.toLowerCase() === NewContact.name.toLowerCase()
+        contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
       )
     ) {
-      alert(`${contact.name} already in contacts`);
-    }
-
-    if (
-      this.state.contacts.some(
-        contact =>
-          contact.number.toLowerCase() === NewContact.number.toLowerCase()
-      )
-    ) {
-      alert(`${contact.number} already in contacts`);
+      alert(`${contact.name} is already in contacts`);
+      return;
     }
 
     this.setState(({ contacts }) => ({
-      contacts: [...contacts, NewContact],
+      contacts: [...contacts, newContact],
     }));
   };
 
@@ -66,7 +57,7 @@ class App extends Component {
     return (
       <>
         <h1 style={{ textAlign: 'center' }}>Phonebook</h1>
-        <NewContact onSubmit={this.onSubmitNewContact} />
+        <NewContact onSubmit={this.handleSubmit} />
         <h2 style={{ textAlign: 'center' }}>Contacts</h2>
         <Filter value={this.state.filter} onChange={this.onChangeFilter} />
         <Contacts

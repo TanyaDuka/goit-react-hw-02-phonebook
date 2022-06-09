@@ -3,17 +3,16 @@ import propTypes from 'prop-types';
 import s from './Contacts.module.css';
 
 const Contacts = ({ contacts, onDelete }) => {
-  console.log(contacts);
   return (
     <div className={s.container}>
       <ul className={s.element}>
-        {contacts.map(contact => (
-          <li key={contact.id}>
-            {contact.name}:{contact.number}
+        {contacts.map(({ id, name, number }) => (
+          <li key={id}>
+            {name}:{number}
             <button
               className={s.deleteButton}
               type="button"
-              onClick={() => onDelete(contact.id)}
+              onClick={() => onDelete(id)}
             >
               Delete
             </button>
@@ -25,7 +24,7 @@ const Contacts = ({ contacts, onDelete }) => {
 };
 
 Contacts.propTypes = {
-  contacts: propTypes.array,
+  contacts: propTypes.arrayOf(propTypes.object),
   onDelete: propTypes.func.isRequired,
 };
 
